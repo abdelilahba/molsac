@@ -47,3 +47,4 @@ export async function fetchOrders(): Promise<MobileOrder[]> {
     return [];
   }
 }
+
