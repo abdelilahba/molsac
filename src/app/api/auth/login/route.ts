@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const cleanUsername = username.trim();
+    const cleanUsername = username.trim().toLowerCase();
     let admin: { id: number; username: string; passwordHash?: string } | null = null;
     let isMatch = false;
 
