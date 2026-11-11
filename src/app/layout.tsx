@@ -34,6 +34,9 @@ export default function RootLayout({
     <html lang="fr" className="scroll-smooth">
       <head>
         <link rel="apple-touch-icon" href="/images/logo.png" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="apple-mobile-web-app-title" content="Mol Sac" />
       </head>
       <body className="min-h-screen bg-[#0d0a08] text-[#f6f3ee] antialiased selection:bg-[#d4af37] selection:text-[#0d0a08]">
         {children}
