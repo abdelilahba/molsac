@@ -39,7 +39,7 @@ export default function QuickViewModal({
         {/* Close button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 z-30 w-10 h-10 rounded-full bg-black/60 hover:bg-black/90 text-[#f6f3ee] hover:text-[#d4af37] border border-white/10 flex items-center justify-center transition-all cursor-pointer"
+          className="absolute top-4 end-4 z-30 w-10 h-10 rounded-full bg-black/60 hover:bg-black/90 text-[#f6f3ee] hover:text-[#d4af37] border border-white/10 flex items-center justify-center transition-all cursor-pointer"
         >
           <X className="w-5 h-5" />
         </button>
@@ -58,7 +58,7 @@ export default function QuickViewModal({
             <div className="absolute inset-0 bg-gradient-to-t from-[#140f0c] via-transparent to-black/30 md:hidden" />
 
             {/* Badges */}
-            <div className="absolute top-4 left-4 flex flex-col gap-2">
+            <div className="absolute top-4 start-4 flex flex-col gap-2">
               <span className="px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-[#0d0a08]/85 text-[#d4af37] border border-[#d4af37]/40 backdrop-blur-md">
                 {product.category}
               </span>
@@ -71,7 +71,7 @@ export default function QuickViewModal({
             </div>
 
             {/* In stock status pill */}
-            <div className="absolute bottom-4 left-4">
+            <div className="absolute bottom-4 start-4">
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-950/90 text-emerald-300 border border-emerald-500/40 backdrop-blur-md">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                 <span>{lang === "fr" ? "Disponible au Magasin (Kissaria N°6)" : "متوفر في قيسارية الحمامة"}</span>

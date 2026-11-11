@@ -14,7 +14,7 @@ import InstagramSection from "@/components/InstagramSection";
 import Footer from "@/components/Footer";
 
 export default function HomePage() {
-  const [lang, setLang] = useState<Language>("fr");
+  const [lang, setLang] = useState<Language>("ar");
 
   return (
     <div
@@ -50,7 +50,7 @@ export default function HomePage() {
       <Footer lang={lang} />
 
       {/* Floating Luxury WhatsApp Concierge Pill */}
-      <aside aria-label="WhatsApp Concierge" className="fixed bottom-6 right-6 z-40 flex items-center gap-3">
+      <aside aria-label="WhatsApp Concierge" className="fixed bottom-6 end-6 z-40 flex items-center gap-3">
         {/* Subtle Tooltip for desktop */}
         <div className="hidden sm:flex items-center gap-2 px-4 py-2 rounded-2xl bg-[#17120e]/95 border border-[#d4af37]/40 shadow-2xl backdrop-blur-md text-xs text-[#fbf8f3] pointer-events-none">
           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />

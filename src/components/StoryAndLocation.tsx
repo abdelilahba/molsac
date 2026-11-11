@@ -130,7 +130,7 @@ export default function StoryAndLocation({ lang }: StoryAndLocationProps) {
             />
 
             {/* Floating Location Stamp */}
-            <div className="absolute bottom-5 left-5 right-5 sm:right-auto bg-[#0d0a08]/90 backdrop-blur-xl px-5 py-3 rounded-2xl border border-[#d4af37]/40 shadow-2xl text-xs text-[#f6f3ee] flex items-center justify-between sm:justify-start gap-4">
+            <div className="absolute bottom-5 start-5 end-5 sm:end-auto bg-[#0d0a08]/90 backdrop-blur-xl px-5 py-3 rounded-2xl border border-[#d4af37]/40 shadow-2xl text-xs text-[#f6f3ee] flex items-center justify-between sm:justify-start gap-4">
               <div className="flex items-center gap-2.5">
                 <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
                 <span className="font-bold text-[#d4af37] font-serif-luxury">

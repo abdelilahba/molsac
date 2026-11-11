@@ -77,7 +77,7 @@ export default function Hero({ lang }: HeroProps) {
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
           {/* Editorial Text Column */}
-          <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left">
+          <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-start">
             {/* Live Boutique Status Pill */}
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#1c1612]/90 border border-[#d4af37]/40 text-[#d4af37] text-xs font-medium mb-6 shadow-[0_0_25px_rgba(212,175,55,0.18)]">
               <span className="relative flex h-2 w-2">
@@ -117,11 +117,11 @@ export default function Hero({ lang }: HeroProps) {
             <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3.5 w-full sm:w-auto">
               <a
                 href="#catalog"
-                className="flex items-center justify-center gap-2.5 px-7 py-4 rounded-full text-xs sm:text-sm font-bold uppercase tracking-[0.15em] bg-gold-metallic text-[#0d0a08] shadow-[0_10px_30px_rgba(212,175,55,0.3)] hover:shadow-[0_15px_35px_rgba(212,175,55,0.45)] hover:scale-105 transition-all duration-300 cursor-pointer active:scale-95"
+                className="flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3.5 sm:py-4 rounded-full text-xs sm:text-sm font-bold uppercase tracking-[0.15em] bg-gold-metallic text-[#0d0a08] shadow-[0_10px_30px_rgba(212,175,55,0.3)] hover:shadow-[0_15px_35px_rgba(212,175,55,0.45)] hover:scale-105 transition-all duration-300 cursor-pointer active:scale-95"
               >
                 <ShoppingBag className="w-4 h-4 stroke-[2.5]" />
                 <span>{t.viewCollection}</span>
-                <ChevronRight className="w-4 h-4" />
+                <ChevronRight className="w-4 h-4 rtl:rotate-180" />
               </a>
 
               <a
@@ -196,7 +196,7 @@ export default function Hero({ lang }: HeroProps) {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30" />
 
                   {/* Top Badge */}
-                  <div className="absolute top-3 left-3 right-3 flex items-center justify-between">
+                  <div className="absolute top-3 start-3 end-3 flex items-center justify-between">
                     <span className="px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-gold-metallic text-[#0d0a08] shadow-lg">
                       {lang === "ar" ? current.tagAr : current.tagFr}
                     </span>
@@ -206,7 +206,7 @@ export default function Hero({ lang }: HeroProps) {
                   </div>
 
                   {/* Floating Price Pill */}
-                  <div className="absolute bottom-3 left-3 flex items-baseline gap-1 px-3.5 py-1.5 rounded-xl bg-black/85 border border-[#d4af37]/50 backdrop-blur-md">
+                  <div className="absolute bottom-3 start-3 flex items-baseline gap-1 px-3.5 py-1.5 rounded-xl bg-black/85 border border-[#d4af37]/50 backdrop-blur-md">
                     <span className="font-serif-luxury font-extrabold text-2xl text-gold-gradient">
                       {current.price}
                     </span>

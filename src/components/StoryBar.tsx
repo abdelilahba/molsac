@@ -154,7 +154,7 @@ export default function StoryBar({ lang }: StoryBarProps) {
               <button
                 key={story.id}
                 onClick={() => setActiveStoryIndex(index)}
-                className="flex flex-col items-center gap-2 group flex-shrink-0 cursor-pointer focus:outline-none transition-transform active:scale-95 text-left"
+                className="flex flex-col items-center gap-2 group flex-shrink-0 cursor-pointer focus:outline-none transition-transform active:scale-95 text-center"
               >
                 {/* Glowing Animated Ring */}
                 <div className="story-ring p-[2.5px] rounded-full shadow-[0_0_15px_rgba(212,175,55,0.25)] group-hover:shadow-[0_0_22px_rgba(212,175,55,0.45)]">

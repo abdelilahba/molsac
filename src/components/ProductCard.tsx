@@ -71,7 +71,7 @@ export default function ProductCard({
         <div className="absolute inset-0 bg-gradient-to-t from-[#15100c] via-transparent to-black/20 opacity-80 pointer-events-none" />
 
         {/* Floating Badges */}
-        <div className="absolute top-3 left-3 right-3 flex items-start justify-between gap-2 pointer-events-none">
+        <div className="absolute top-3 start-3 end-3 flex items-start justify-between gap-2 pointer-events-none">
           {/* Category Tag */}
           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-bold uppercase tracking-wider bg-[#0d0a08]/85 text-[#d4af37] border border-[#d4af37]/40 backdrop-blur-md shadow-md">
             <span>{catMeta.icon}</span>
@@ -104,7 +104,7 @@ export default function ProductCard({
         )}
 
         {/* Boutique Availability Pill */}
-        <div className="absolute bottom-3 left-3">
+        <div className="absolute bottom-3 start-3">
           {product.inStock ? (
             <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-semibold tracking-wide bg-emerald-950/80 text-emerald-300 border border-emerald-500/40 backdrop-blur-md">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
@@ -153,27 +153,27 @@ export default function ProductCard({
             <span className="text-[10px] uppercase tracking-[0.2em] text-[#c5a880]/70 font-semibold">
               {lang === "fr" ? "Prix Boutique Tétouan" : "الثمن بالمحل"}
             </span>
-            <div className="text-right">
+            <div className="text-end">
               <span className="text-2xl sm:text-3xl font-bold font-serif-luxury text-gold-gradient">
                 {product.price}
               </span>
-              <span className="text-xs sm:text-sm font-bold text-[#d4af37] ml-1.5">
+              <span className="text-xs sm:text-sm font-bold text-[#d4af37] ms-1.5">
                 {t.dh}
               </span>
             </div>
           </div>
 
           {/* Action Buttons */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
+          <div className="grid grid-cols-2 gap-2 sm:gap-2.5 pt-1">
             {/* WhatsApp Direct Order */}
             <a
               href={waUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 px-3 py-3 rounded-2xl text-xs font-bold uppercase tracking-wider bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white shadow-[0_4px_15px_rgba(16,185,129,0.25)] transition-all cursor-pointer active:scale-95"
+              className="flex items-center justify-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-2.5 sm:py-3 rounded-2xl text-[11px] sm:text-xs font-bold uppercase tracking-wider bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white shadow-[0_4px_15px_rgba(16,185,129,0.25)] transition-all cursor-pointer active:scale-95"
               title="Commander sur WhatsApp"
             >
-              <MessageCircle className="w-4 h-4 fill-white flex-shrink-0" />
+              <MessageCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-white flex-shrink-0" />
               <span className="truncate">WhatsApp</span>
             </a>
 
@@ -181,10 +181,10 @@ export default function ProductCard({
             <button
               onClick={() => onReserve(product)}
               disabled={!product.inStock}
-              className="flex items-center justify-center gap-2 px-3 py-3 rounded-2xl text-xs font-bold uppercase tracking-wider bg-gold-metallic hover:opacity-95 text-[#0d0a08] shadow-[0_4px_15px_rgba(212,175,55,0.2)] transition-all cursor-pointer active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed"
+              className="flex items-center justify-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-2.5 sm:py-3 rounded-2xl text-[11px] sm:text-xs font-bold uppercase tracking-wider bg-gold-metallic hover:opacity-95 text-[#0d0a08] shadow-[0_4px_15px_rgba(212,175,55,0.2)] transition-all cursor-pointer active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed"
               title="Réserver l'article en ligne"
             >
-              <ShoppingBag className="w-4 h-4 flex-shrink-0" />
+              <ShoppingBag className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" />
               <span className="truncate">{lang === "fr" ? "Réserver" : "حجز بالمحل"}</span>
             </button>
           </div>

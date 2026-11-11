@@ -48,7 +48,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr" className="scroll-smooth" suppressHydrationWarning>
+    <html lang="ar" dir="rtl" className="scroll-smooth" suppressHydrationWarning>
       <body
         className="min-h-screen bg-[#0d0a08] text-[#f6f3ee] antialiased selection:bg-[#d4af37] selection:text-[#0d0a08]"
         suppressHydrationWarning

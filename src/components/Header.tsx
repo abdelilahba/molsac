@@ -62,16 +62,16 @@ export default function Header({ lang, onLanguageChange }: HeaderProps) {
             : "bg-[#0d0a08]/85 backdrop-blur-xl border-[#d4af37]/15 shadow-lg"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-18 sm:h-20 flex items-center justify-between gap-4">
-          {/* 1. Left: Brand Identity (Original Logo + Typography) */}
-          <Link href="/" className="flex items-center gap-3.5 group flex-shrink-0">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 h-16 sm:h-20 flex items-center justify-between gap-2 sm:gap-4">
+          {/* 1. Left / Start: Brand Identity (Original Logo + Typography) */}
+          <Link href="/" className="flex items-center gap-2.5 sm:gap-3.5 group flex-shrink-0">
             {/* Original Store Logo */}
-            <div className="relative w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden border-2 border-[#d4af37]/80 shadow-[0_0_20px_rgba(212,175,55,0.25)] bg-[#1c1612] flex-shrink-0 group-hover:border-[#d4af37] group-hover:scale-105 transition-all duration-300">
+            <div className="relative w-10 h-10 sm:w-14 sm:h-14 rounded-full overflow-hidden border-2 border-[#d4af37]/80 shadow-[0_0_20px_rgba(212,175,55,0.25)] bg-[#1c1612] flex-shrink-0 group-hover:border-[#d4af37] group-hover:scale-105 transition-all duration-300">
               <Image
                 src="/images/logo.png"
                 alt="Mol Sac Logo"
                 fill
-                sizes="56px"
+                sizes="(max-width: 640px) 40px, 56px"
                 className="object-cover"
                 priority
               />
@@ -79,15 +79,15 @@ export default function Header({ lang, onLanguageChange }: HeaderProps) {
 
             {/* Typography */}
             <div className="flex flex-col">
-              <div className="flex items-baseline gap-2">
-                <span className="text-xl sm:text-2xl font-extrabold tracking-[0.2em] font-serif-luxury text-[#fbf8f3] group-hover:text-[#d4af37] transition-colors leading-none">
+              <div className="flex items-baseline gap-1.5 sm:gap-2">
+                <span className="text-lg sm:text-2xl font-extrabold tracking-[0.15em] sm:tracking-[0.2em] font-serif-luxury text-[#fbf8f3] group-hover:text-[#d4af37] transition-colors leading-none">
                   MOL SAC
                 </span>
-                <span className="text-sm sm:text-base font-bold text-[#d4af37] font-arabic-luxury leading-none">
+                <span className="text-xs sm:text-base font-bold text-[#d4af37] font-arabic-luxury leading-none">
                   مول الصاك
                 </span>
               </div>
-              <span className="text-[10px] text-[#c5a880]/80 tracking-[0.25em] uppercase font-light mt-1 hidden sm:block">
+              <span className="text-[10px] text-[#c5a880]/80 tracking-[0.2em] uppercase font-light mt-1 hidden sm:block">
                 {lang === "fr" ? "Haute Maroquinerie • Tétouan" : "حقائب فاخرة • تطوان"}
               </span>
             </div>
@@ -102,17 +102,17 @@ export default function Header({ lang, onLanguageChange }: HeaderProps) {
                 className="hover:text-[#d4af37] transition-colors py-1 relative group"
               >
                 <span>{lang === "ar" ? link.labelAr : link.labelFr}</span>
-                <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-gradient-to-r from-[#d4af37] to-[#aa820a] transition-all duration-300 group-hover:w-full" />
+                <span className="absolute bottom-0 inset-x-0 w-0 h-[2px] bg-gradient-to-r from-[#d4af37] to-[#aa820a] transition-all duration-300 group-hover:w-full" />
               </a>
             ))}
           </div>
 
           {/* 3. Right: Luxury Action Buttons */}
-          <div className="flex items-center gap-2 sm:gap-3.5">
+          <div className="flex items-center gap-1.5 sm:gap-3">
             {/* Language Switcher Button */}
             <button
               onClick={() => onLanguageChange(lang === "fr" ? "ar" : "fr")}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-[#17120e] hover:bg-[#221a14] text-[#d4af37] border border-[#d4af37]/35 transition-all shadow-sm cursor-pointer active:scale-95"
+              className="flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-full text-xs font-semibold bg-[#17120e] hover:bg-[#221a14] text-[#d4af37] border border-[#d4af37]/35 transition-all shadow-sm cursor-pointer active:scale-95"
               title="Changer de langue / تغيير اللغة"
             >
               <Globe className="w-3.5 h-3.5" />
@@ -124,7 +124,7 @@ export default function Header({ lang, onLanguageChange }: HeaderProps) {
               href="https://wa.me/212712128124?text=Salam%2C%20je%20vous%20contacte%20depuis%20le%20site%20officiel%20Mol%20Sac%20T%C3%A9touan"
               target="_blank"
               rel="noopener noreferrer"
-              className="relative inline-flex items-center gap-2 px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs font-bold bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white shadow-[0_0_20px_rgba(16,185,129,0.35)] transition-all cursor-pointer active:scale-95"
+              className="relative inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs font-bold bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white shadow-[0_0_20px_rgba(16,185,129,0.35)] transition-all cursor-pointer active:scale-95"
             >
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-80" />
@@ -159,7 +159,7 @@ export default function Header({ lang, onLanguageChange }: HeaderProps) {
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden fixed inset-x-0 top-[72px] sm:top-[80px] bottom-0 bg-[#0d0a08]/98 backdrop-blur-2xl border-t border-[#d4af37]/25 z-40 overflow-y-auto animate-in slide-in-from-top duration-300 flex flex-col justify-between p-6">
+        <div className="lg:hidden fixed inset-x-0 top-[64px] sm:top-[80px] bottom-0 bg-[#0d0a08]/98 backdrop-blur-2xl border-t border-[#d4af37]/25 z-40 overflow-y-auto animate-in slide-in-from-top duration-300 flex flex-col justify-between p-5 sm:p-6">
           <div className="space-y-6">
             {/* Boutique Location Card inside menu */}
             <div className="p-4 rounded-2xl bg-[#17120e] border border-[#d4af37]/30 flex items-center gap-3">
@@ -195,7 +195,7 @@ export default function Header({ lang, onLanguageChange }: HeaderProps) {
                     <span className="text-base">{link.icon}</span>
                     <span>{lang === "ar" ? link.labelAr : link.labelFr}</span>
                   </span>
-                  <ChevronRight className="w-4 h-4 text-[#d4af37]/50" />
+                  <ChevronRight className="w-4 h-4 text-[#d4af37]/50 rtl:rotate-180" />
                 </a>
               ))}
             </div>
@@ -211,7 +211,7 @@ export default function Header({ lang, onLanguageChange }: HeaderProps) {
               className="w-full py-4 rounded-2xl bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2.5 shadow-lg shadow-emerald-950/50"
             >
               <MessageCircle className="w-4 h-4 fill-white" />
-              <span>Commander sur WhatsApp (0712-128124)</span>
+              <span>{lang === "ar" ? "طلب مباشر عبر واتساب (0712-128124)" : "Commander sur WhatsApp (0712-128124)"}</span>
             </a>
 
             {/* Direct Phone & Admin */}

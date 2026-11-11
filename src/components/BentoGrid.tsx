@@ -51,7 +51,7 @@ export default function BentoGrid({ lang }: BentoGridProps) {
             <div className="absolute inset-0 bg-gradient-to-t from-[#0d0a08] via-[#0d0a08]/40 to-black/20" />
 
             {/* Top Floating Badge */}
-            <div className="absolute top-6 left-6 right-6 flex items-center justify-between z-10 pointer-events-none">
+            <div className="absolute top-6 start-6 end-6 flex items-center justify-between z-10 pointer-events-none">
               <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest bg-gold-metallic text-[#0d0a08] shadow-[0_0_20px_rgba(212,175,55,0.4)]">
                 <Sparkles className="w-3.5 h-3.5 fill-[#0d0a08]" />
                 <span>{lang === "fr" ? "Pièce Maîtresse 2026" : "تحفة الموسم 2026"}</span>

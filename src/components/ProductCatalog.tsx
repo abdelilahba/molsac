@@ -164,18 +164,18 @@ export default function ProductCatalog({ lang }: ProductCatalogProps) {
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 max-w-5xl mx-auto">
             {/* Search Input */}
             <div className="relative w-full md:flex-1">
-              <Search className="w-4 h-4 text-[#d4af37] absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none" />
+              <Search className="w-4 h-4 text-[#d4af37] absolute start-4 top-1/2 -translate-y-1/2 pointer-events-none" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder={t.searchPlaceholder}
-                className="w-full pl-11 pr-10 py-3.5 bg-[#17120e] rounded-full border border-[#d4af37]/30 text-xs sm:text-sm text-[#f6f3ee] placeholder-[#e8e0d5]/40 focus:outline-none focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37] transition-all"
+                className="w-full ps-11 pe-10 py-3.5 bg-[#17120e] rounded-full border border-[#d4af37]/30 text-xs sm:text-sm text-[#f6f3ee] placeholder-[#e8e0d5]/40 focus:outline-none focus:border-[#d4af37] focus:ring-1 focus:ring-[#d4af37] transition-all"
               />
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery("")}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#e8e0d5]/60 hover:text-white"
+                  className="absolute end-3.5 top-1/2 -translate-y-1/2 text-[#e8e0d5]/60 hover:text-white"
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -188,14 +188,14 @@ export default function ProductCatalog({ lang }: ProductCatalogProps) {
                 <select
                   value={sortBy}
                   onChange={(e: any) => setSortBy(e.target.value)}
-                  className="w-full md:w-auto appearance-none bg-[#17120e] border border-[#d4af37]/30 rounded-full px-4 py-3.5 pr-8 text-xs font-semibold text-[#f6f3ee] focus:outline-none focus:border-[#d4af37] cursor-pointer"
+                  className="w-full md:w-auto appearance-none bg-[#17120e] border border-[#d4af37]/30 rounded-full ps-4 pe-8 py-3.5 text-xs font-semibold text-[#f6f3ee] focus:outline-none focus:border-[#d4af37] cursor-pointer"
                 >
                   <option value="featured">✨ {t.sortFeatured || "Coups de cœur"}</option>
                   <option value="newest">🕒 {t.sortNewest || "Nouveautés"}</option>
                   <option value="priceAsc">📈 {t.sortPriceAsc || "Prix : Moins cher"}</option>
                   <option value="priceDesc">📉 {t.sortPriceDesc || "Prix : Plus cher"}</option>
                 </select>
-                <ArrowUpDown className="w-3.5 h-3.5 text-[#d4af37] absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                <ArrowUpDown className="w-3.5 h-3.5 text-[#d4af37] absolute end-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
               </div>
 
               {/* Featured Only Pill */}
@@ -294,8 +294,8 @@ export default function ProductCatalog({ lang }: ProductCatalogProps) {
           <div
             className={
               layoutMode === "editorial"
-                ? "grid grid-cols-1 md:grid-cols-2 gap-7 sm:gap-9"
-                : "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-7"
+                ? "grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-9"
+                : "grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6"
             }
           >
             {filteredProducts.map((product) => (
