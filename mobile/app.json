@@ -1,0 +1,39 @@
+{
+  "expo": {
+    "name": "Mol Sac Tétouan",
+    "slug": "molsac-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0d0a08"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.molsac.app",
+      "infoPlist": {
+        "NSCameraUsageDescription": "Mol Sac a besoin d'accéder à l'appareil photo pour vous permettre de photographier et ajouter vos sacs et produits en boutique.",
+        "NSPhotoLibraryUsageDescription": "Mol Sac a besoin d'accéder à vos photos pour sélectionner les images de vos articles."
+      }
+    },
+    "android": {
+      "package": "com.molsac.app",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#0d0a08"
+      },
+      "permissions": [
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}
+

@@ -94,14 +94,89 @@ body {
   100% { transform: translateX(-50%); }
 }
 
+@keyframes marquee-reverse {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0%); }
+}
+
+@keyframes float-subtle {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  50% { transform: scale(1.08); opacity: 0.4; }
+  100% { transform: scale(0.95); opacity: 0.8; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(212,175,55,0.25) 50%, rgba(255,255,255,0) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 3s infinite;
+}
+
+.animate-float {
+  animation: float-subtle 6s ease-in-out infinite;
+}
+
+.animate-pulse-ring {
+  animation: pulse-ring 3s ease-in-out infinite;
+}
+
 .animate-marquee {
   display: flex;
   width: 200%;
-  animation: marquee 25s linear infinite;
+  animation: marquee 28s linear infinite;
 }
 
-.animate-marquee:hover {
+.animate-marquee-reverse {
+  display: flex;
+  width: 200%;
+  animation: marquee-reverse 32s linear infinite;
+}
+
+.animate-marquee:hover,
+.animate-marquee-reverse:hover {
   animation-play-state: paused;
+}
+
+/* Luxury Story Ring */
+.story-ring {
+  position: relative;
+  background: conic-gradient(from 180deg at 50% 50%, #d4af37 0deg, #fff2cc 90deg, #aa820a 180deg, #f3e5ab 270deg, #d4af37 360deg);
+  padding: 2.5px;
+  border-radius: 9999px;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.story-ring:hover {
+  transform: scale(1.06);
+}
+
+/* Modern Noise Texture Overlay */
+.luxury-noise {
+  background-image: radial-gradient(rgba(212, 175, 55, 0.08) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+/* Ultra Modern Card with Inner Glow */
+.card-modern-luxury {
+  background: linear-gradient(145deg, rgba(28, 22, 18, 0.85) 0%, rgba(15, 11, 8, 0.95) 100%);
+  border: 1px solid rgba(212, 175, 55, 0.22);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-modern-luxury:hover {
+  border-color: rgba(212, 175, 55, 0.55);
+  box-shadow: 0 20px 45px -10px rgba(212, 175, 55, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  transform: translateY(-4px);
 }
 
 /* iPhone safe area utility classes */

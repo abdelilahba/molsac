@@ -4,8 +4,11 @@ import { useState } from "react";
 import { MessageCircle, Sparkles, MapPin } from "lucide-react";
 import { Language } from "@/lib/translations";
 import Header from "@/components/Header";
+import StoryBar from "@/components/StoryBar";
 import Hero from "@/components/Hero";
+import BentoGrid from "@/components/BentoGrid";
 import ProductCatalog from "@/components/ProductCatalog";
+import Testimonials from "@/components/Testimonials";
 import StoryAndLocation from "@/components/StoryAndLocation";
 import InstagramSection from "@/components/InstagramSection";
 import Footer from "@/components/Footer";
@@ -16,18 +19,27 @@ export default function HomePage() {
   return (
     <div
       dir={lang === "ar" ? "rtl" : "ltr"}
-      className="min-h-screen bg-[#0d0a08] text-[#f6f3ee] selection:bg-[#d4af37] selection:text-[#0d0a08] relative"
+      className="min-h-screen bg-[#0d0a08] text-[#f6f3ee] selection:bg-[#d4af37] selection:text-[#0d0a08] relative font-sans"
     >
       {/* Sticky Luxury Navbar */}
       <Header lang={lang} onLanguageChange={setLang} />
 
-      {/* Editorial Hero Section */}
+      {/* Interactive Boutique Stories Bar (Like Instagram / Modern Luxury) */}
+      <StoryBar lang={lang} />
+
+      {/* Editorial High-Fashion Hero Section */}
       <Hero lang={lang} />
 
-      {/* Live Collection Catalog */}
+      {/* Modern Bento Grid Curations */}
+      <BentoGrid lang={lang} />
+
+      {/* Interactive Live Collection Catalog with Quick View */}
       <ProductCatalog lang={lang} />
 
-      {/* Historic Boutique & Google Maps Location */}
+      {/* Customer Trust & Verified Reviews */}
+      <Testimonials lang={lang} />
+
+      {/* Historic Boutique & Google Maps Location in Tétouan */}
       <StoryAndLocation lang={lang} />
 
       {/* Instagram Spotlight */}

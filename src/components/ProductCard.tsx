@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { MessageCircle, ShoppingBag, Sparkles, Check, AlertCircle, ArrowUpRight } from "lucide-react";
+import { MessageCircle, ShoppingBag, Sparkles, Check, AlertCircle, Eye, ArrowUpRight } from "lucide-react";
 import { Product } from "@/types";
 import { Language, translations } from "@/lib/translations";
 import { getProductImage } from "@/lib/images";
@@ -10,9 +10,17 @@ interface ProductCardProps {
   product: Product;
   lang: Language;
   onReserve: (product: Product) => void;
+  onQuickView?: (product: Product) => void;
+  layoutMode?: "grid" | "editorial";
 }
 
-export default function ProductCard({ product, lang, onReserve }: ProductCardProps) {
+export default function ProductCard({
+  product,
+  lang,
+  onReserve,
+  onQuickView,
+  layoutMode = "grid",
+}: ProductCardProps) {
   const t = translations[lang];
   const imageUrl = getProductImage(product.images);
 
@@ -37,10 +45,20 @@ export default function ProductCard({ product, lang, onReserve }: ProductCardPro
   const waTextAr = `السلام عليكم، أرغب في حجز هذا المنتج من محل مول الصاك بتطوان:\n• الموديل : ${product.nameAr || product.name}\n• الثمن : ${product.price} درهم\nهل هو متوفر حالياً في قيسارية الحمامة ؟`;
   const waUrl = `https://wa.me/212712128124?text=${encodeURIComponent(lang === "ar" ? waTextAr : waTextFr)}`;
 
+  const isEditorial = layoutMode === "editorial";
+
   return (
-    <div className="group relative bg-[#17120e] rounded-[28px] overflow-hidden border border-[#d4af37]/25 shadow-xl hover:shadow-[0_15px_40px_rgba(212,175,55,0.15)] hover:border-[#d4af37]/60 transition-all duration-500 flex flex-col justify-between transform hover:-translate-y-1.5">
+    <div
+      className={`group relative bg-[#15100c] rounded-[30px] overflow-hidden border border-[#d4af37]/25 shadow-xl hover:shadow-[0_20px_45px_rgba(212,175,55,0.18)] hover:border-[#d4af37]/60 transition-all duration-500 flex flex-col justify-between transform hover:-translate-y-2 card-modern-luxury ${
+        isEditorial ? "sm:grid sm:grid-cols-12 sm:gap-6 sm:items-center" : ""
+      }`}
+    >
       {/* Top Image Showcase Area */}
-      <div className="relative aspect-[4/4] sm:aspect-[4/4] w-full overflow-hidden bg-[#0d0a08]">
+      <div
+        className={`relative w-full overflow-hidden bg-[#0d0a08] ${
+          isEditorial ? "sm:col-span-6 aspect-square sm:aspect-auto sm:h-full min-h-[300px]" : "aspect-[4/4]"
+        }`}
+      >
         <Image
           src={imageUrl}
           alt={displayName}
@@ -50,7 +68,7 @@ export default function ProductCard({ product, lang, onReserve }: ProductCardPro
         />
 
         {/* Subtle dark gradient overlay at bottom of image */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#17120e] via-transparent to-black/20 opacity-80 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#15100c] via-transparent to-black/20 opacity-80 pointer-events-none" />
 
         {/* Floating Badges */}
         <div className="absolute top-3 left-3 right-3 flex items-start justify-between gap-2 pointer-events-none">
@@ -69,6 +87,22 @@ export default function ProductCard({ product, lang, onReserve }: ProductCardPro
           )}
         </div>
 
+        {/* Quick View Floating Button on Hover */}
+        {onQuickView && (
+          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                onQuickView(product);
+              }}
+              className="pointer-events-auto px-4 py-2.5 rounded-full bg-black/80 hover:bg-[#d4af37] text-white hover:text-black font-bold text-xs uppercase tracking-wider border border-[#d4af37]/60 backdrop-blur-md shadow-2xl flex items-center gap-2 transform translate-y-3 group-hover:translate-y-0 transition-all duration-300 cursor-pointer"
+            >
+              <Eye className="w-4 h-4" />
+              <span>{t.quickView || "Aperçu Rapide"}</span>
+            </button>
+          </div>
+        )}
+
         {/* Boutique Availability Pill */}
         <div className="absolute bottom-3 left-3">
           {product.inStock ? (
@@ -86,7 +120,11 @@ export default function ProductCard({ product, lang, onReserve }: ProductCardPro
       </div>
 
       {/* Content Section */}
-      <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between">
+      <div
+        className={`p-5 sm:p-6 flex-1 flex flex-col justify-between ${
+          isEditorial ? "sm:col-span-6 sm:p-8" : ""
+        }`}
+      >
         <div>
           {/* Main Title */}
           <h3 className="font-serif-luxury font-bold text-base sm:text-lg text-[#fbf8f3] group-hover:text-[#d4af37] transition-colors duration-300 line-clamp-1">
@@ -102,7 +140,7 @@ export default function ProductCard({ product, lang, onReserve }: ProductCardPro
 
           {/* Description */}
           {description && (
-            <p className="text-xs text-[#e8e0d5]/70 line-clamp-2 mt-2.5 leading-relaxed font-light">
+            <p className="text-xs text-[#e8e0d5]/70 line-clamp-2 mt-2 leading-relaxed font-light">
               {description}
             </p>
           )}
@@ -132,7 +170,7 @@ export default function ProductCard({ product, lang, onReserve }: ProductCardPro
               href={waUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 px-3 py-3 rounded-2xl text-xs font-bold uppercase tracking-wider bg-emerald-600 hover:bg-emerald-500 text-white shadow-[0_4px_15px_rgba(16,185,129,0.25)] transition-all cursor-pointer active:scale-95"
+              className="flex items-center justify-center gap-2 px-3 py-3 rounded-2xl text-xs font-bold uppercase tracking-wider bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white shadow-[0_4px_15px_rgba(16,185,129,0.25)] transition-all cursor-pointer active:scale-95"
               title="Commander sur WhatsApp"
             >
               <MessageCircle className="w-4 h-4 fill-white flex-shrink-0" />

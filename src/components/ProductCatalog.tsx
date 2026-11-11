@@ -1,11 +1,12 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Search, Sparkles, RefreshCw, ShoppingBag, MessageCircle, X } from "lucide-react";
+import { Search, Sparkles, RefreshCw, ShoppingBag, MessageCircle, X, LayoutGrid, Columns, ArrowUpDown, Filter } from "lucide-react";
 import { Product } from "@/types";
 import { Language, translations } from "@/lib/translations";
 import ProductCard from "./ProductCard";
 import OrderModal from "./OrderModal";
+import QuickViewModal from "./QuickViewModal";
 
 interface ProductCatalogProps {
   lang: Language;
@@ -20,10 +21,16 @@ export default function ProductCatalog({ lang }: ProductCatalogProps) {
   const [selectedCategory, setSelectedCategory] = useState<string>("ALL");
   const [searchQuery, setSearchQuery] = useState("");
   const [showFeaturedOnly, setShowFeaturedOnly] = useState(false);
+  const [sortBy, setSortBy] = useState<"featured" | "priceAsc" | "priceDesc" | "newest">("featured");
+  const [layoutMode, setLayoutMode] = useState<"grid" | "editorial">("grid");
 
-  // Modal reservation state
+  // Reservation modal state
   const [selectedProductForOrder, setSelectedProductForOrder] = useState<Product | null>(null);
   const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
+
+  // Quick view modal state
+  const [selectedProductForQuickView, setSelectedProductForQuickView] = useState<Product | null>(null);
+  const [isQuickViewOpen, setIsQuickViewOpen] = useState(false);
 
   const fetchProducts = async () => {
     setLoading(true);
@@ -55,21 +62,43 @@ export default function ProductCatalog({ lang }: ProductCatalogProps) {
     { key: "ACCESSOIRE", labelFr: "Accessoires & Parures", labelAr: "إكسسوارات ومجوهرات", icon: "💍" },
   ];
 
-  const filteredProducts = products.filter((p) => {
-    const matchesCategory = selectedCategory === "ALL" || p.category === selectedCategory;
-    const matchesFeatured = !showFeaturedOnly || p.featured;
-    const matchesSearch =
-      !searchQuery.trim() ||
-      p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      (p.nameAr && p.nameAr.toLowerCase().includes(searchQuery.toLowerCase())) ||
-      (p.description && p.description.toLowerCase().includes(searchQuery.toLowerCase()));
+  // Filter & Sort
+  const filteredProducts = products
+    .filter((p) => {
+      const matchesCategory = selectedCategory === "ALL" || p.category === selectedCategory;
+      const matchesFeatured = !showFeaturedOnly || p.featured;
+      const matchesSearch =
+        !searchQuery.trim() ||
+        p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (p.nameAr && p.nameAr.toLowerCase().includes(searchQuery.toLowerCase())) ||
+        (p.description && p.description.toLowerCase().includes(searchQuery.toLowerCase()));
 
-    return matchesCategory && matchesFeatured && matchesSearch;
-  });
+      return matchesCategory && matchesFeatured && matchesSearch;
+    })
+    .sort((a, b) => {
+      if (sortBy === "featured") {
+        return (b.featured ? 1 : 0) - (a.featured ? 1 : 0);
+      }
+      if (sortBy === "priceAsc") {
+        return a.price - b.price;
+      }
+      if (sortBy === "priceDesc") {
+        return b.price - a.price;
+      }
+      if (sortBy === "newest") {
+        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+      }
+      return 0;
+    });
 
   const handleOpenReserve = (product: Product) => {
     setSelectedProductForOrder(product);
     setIsOrderModalOpen(true);
+  };
+
+  const handleOpenQuickView = (product: Product) => {
+    setSelectedProductForQuickView(product);
+    setIsQuickViewOpen(true);
   };
 
   return (
@@ -102,6 +131,11 @@ export default function ProductCatalog({ lang }: ProductCatalogProps) {
             {categories.map((cat) => {
               const isActive = selectedCategory === cat.key;
               const label = lang === "ar" ? cat.labelAr : cat.labelFr;
+              const count =
+                cat.key === "ALL"
+                  ? products.length
+                  : products.filter((p) => p.category === cat.key).length;
+
               return (
                 <button
                   key={cat.key}
@@ -114,15 +148,22 @@ export default function ProductCatalog({ lang }: ProductCatalogProps) {
                 >
                   <span className="text-base">{cat.icon}</span>
                   <span>{label}</span>
+                  <span
+                    className={`text-[10px] px-2 py-0.5 rounded-full ${
+                      isActive ? "bg-black/20 text-black font-extrabold" : "bg-white/10 text-[#d4af37]"
+                    }`}
+                  >
+                    {count}
+                  </span>
                 </button>
               );
             })}
           </div>
 
           {/* Search Bar & Quick Toggles */}
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 max-w-4xl mx-auto">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4 max-w-5xl mx-auto">
             {/* Search Input */}
-            <div className="relative w-full sm:flex-1">
+            <div className="relative w-full md:flex-1">
               <Search className="w-4 h-4 text-[#d4af37] absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none" />
               <input
                 type="text"
@@ -141,18 +182,57 @@ export default function ProductCatalog({ lang }: ProductCatalogProps) {
               )}
             </div>
 
-            {/* Featured Only Pill */}
-            <button
-              onClick={() => setShowFeaturedOnly(!showFeaturedOnly)}
-              className={`flex items-center gap-2 px-5 py-3 rounded-full text-xs font-bold tracking-wider uppercase transition-all cursor-pointer whitespace-nowrap ${
-                showFeaturedOnly
-                  ? "bg-[#d4af37]/20 border border-[#d4af37] text-[#d4af37]"
-                  : "bg-[#17120e] border border-white/10 text-[#e8e0d5]/70 hover:border-[#d4af37]/40"
-              }`}
-            >
-              <Sparkles className="w-3.5 h-3.5 text-[#d4af37]" />
-              <span>{lang === "fr" ? "Éditions Rares" : "المميز فقط"}</span>
-            </button>
+            {/* Sort Selector */}
+            <div className="flex items-center gap-3 w-full md:w-auto justify-between md:justify-end">
+              <div className="relative flex-1 md:flex-none">
+                <select
+                  value={sortBy}
+                  onChange={(e: any) => setSortBy(e.target.value)}
+                  className="w-full md:w-auto appearance-none bg-[#17120e] border border-[#d4af37]/30 rounded-full px-4 py-3.5 pr-8 text-xs font-semibold text-[#f6f3ee] focus:outline-none focus:border-[#d4af37] cursor-pointer"
+                >
+                  <option value="featured">✨ {t.sortFeatured || "Coups de cœur"}</option>
+                  <option value="newest">🕒 {t.sortNewest || "Nouveautés"}</option>
+                  <option value="priceAsc">📈 {t.sortPriceAsc || "Prix : Moins cher"}</option>
+                  <option value="priceDesc">📉 {t.sortPriceDesc || "Prix : Plus cher"}</option>
+                </select>
+                <ArrowUpDown className="w-3.5 h-3.5 text-[#d4af37] absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+              </div>
+
+              {/* Featured Only Pill */}
+              <button
+                onClick={() => setShowFeaturedOnly(!showFeaturedOnly)}
+                className={`flex items-center gap-2 px-4 py-3.5 rounded-full text-xs font-bold tracking-wider uppercase transition-all cursor-pointer whitespace-nowrap ${
+                  showFeaturedOnly
+                    ? "bg-[#d4af37]/20 border border-[#d4af37] text-[#d4af37]"
+                    : "bg-[#17120e] border border-white/10 text-[#e8e0d5]/70 hover:border-[#d4af37]/40"
+                }`}
+              >
+                <Sparkles className="w-3.5 h-3.5 text-[#d4af37]" />
+                <span className="hidden sm:inline">{lang === "fr" ? "Éditions Rares" : "المميز فقط"}</span>
+              </button>
+
+              {/* Layout Switcher (Grid vs Editorial) */}
+              <div className="hidden sm:flex items-center gap-1 p-1 rounded-full bg-[#17120e] border border-[#d4af37]/30">
+                <button
+                  onClick={() => setLayoutMode("grid")}
+                  className={`p-2 rounded-full transition-colors cursor-pointer ${
+                    layoutMode === "grid" ? "bg-[#d4af37] text-black" : "text-[#e8e0d5]/60 hover:text-white"
+                  }`}
+                  title={t.viewGrid || "Grille"}
+                >
+                  <LayoutGrid className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={() => setLayoutMode("editorial")}
+                  className={`p-2 rounded-full transition-colors cursor-pointer ${
+                    layoutMode === "editorial" ? "bg-[#d4af37] text-black" : "text-[#e8e0d5]/60 hover:text-white"
+                  }`}
+                  title={t.viewMagazine || "Éditorial"}
+                >
+                  <Columns className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -211,18 +291,35 @@ export default function ProductCatalog({ lang }: ProductCatalogProps) {
             </a>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-7">
+          <div
+            className={
+              layoutMode === "editorial"
+                ? "grid grid-cols-1 md:grid-cols-2 gap-7 sm:gap-9"
+                : "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-7"
+            }
+          >
             {filteredProducts.map((product) => (
               <ProductCard
                 key={product.id}
                 product={product}
                 lang={lang}
                 onReserve={handleOpenReserve}
+                onQuickView={handleOpenQuickView}
+                layoutMode={layoutMode}
               />
             ))}
           </div>
         )}
       </div>
+
+      {/* Quick View Modal */}
+      <QuickViewModal
+        product={selectedProductForQuickView}
+        isOpen={isQuickViewOpen}
+        lang={lang}
+        onClose={() => setIsQuickViewOpen(false)}
+        onReserve={handleOpenReserve}
+      />
 
       {/* Reservation Drawer / Modal */}
       <OrderModal
