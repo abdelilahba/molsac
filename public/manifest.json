@@ -1,11 +1,11 @@
 {
-  "name": "Mol Sac Admin",
-  "short_name": "MolSac",
-  "description": "Mol Sac Store Admin & Showcase Management",
+  "name": "Mol Sac — Gérance Boutique",
+  "short_name": "Mol Sac",
+  "description": "Application de gérance pour la boutique Mol Sac à Kissaria Al Hamama, Tétouan.",
   "start_url": "/admin",
   "display": "standalone",
-  "background_color": "#f5f0e8",
-  "theme_color": "#3d2b1f",
+  "background_color": "#0d0a08",
+  "theme_color": "#0d0a08",
   "orientation": "portrait",
   "icons": [
     {
