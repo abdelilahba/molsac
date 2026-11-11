@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("http://localhost:3000"),
   title: "MOL SAC • Haute Maroquinerie & Élégance à Tétouan | مول الصاك",
   description: "Maison de maroquinerie, souliers d'exception et haute joaillerie fantaisie à Kissaria Al Hamama, Tétouan. Découvrez la nouvelle collection 2026.",
   keywords: ["Mol Sac", "مول الصاك", "Maroquinerie Tétouan", "تطوان", "Kissaria Al Hamama", "Sacs luxe Maroc", "Chaussures Maroc", "Haute maroquinerie"],
