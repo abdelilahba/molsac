@@ -4,16 +4,32 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL("http://localhost:3000"),
   title: "MOL SAC • Haute Maroquinerie & Élégance à Tétouan | مول الصاك",
-  description: "Maison de maroquinerie, souliers d'exception et haute joaillerie fantaisie à Kissaria Al Hamama, Tétouan. Découvrez la nouvelle collection 2026.",
-  keywords: ["Mol Sac", "مول الصاك", "Maroquinerie Tétouan", "تطوان", "Kissaria Al Hamama", "Sacs luxe Maroc", "Chaussures Maroc", "Haute maroquinerie"],
+  description:
+    "Maison de maroquinerie, souliers d'exception et haute joaillerie fantaisie à Kissaria Al Hamama, Tétouan. Découvrez la nouvelle collection 2026.",
+  keywords: [
+    "Mol Sac",
+    "مول الصاك",
+    "Maroquinerie Tétouan",
+    "تطوان",
+    "Kissaria Al Hamama",
+    "Sacs luxe Maroc",
+    "Chaussures Maroc",
+    "Haute maroquinerie",
+  ],
   manifest: "/manifest.json",
   icons: {
     icon: "/images/logo.png",
     apple: "/images/logo.png",
   },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "Mol Sac",
+  },
   openGraph: {
     title: "MOL SAC • L'Élégance à la Tétouanaise",
-    description: "Boutique d'exception : Sacs, Souliers & Accessoires. Kissaria Al Hamama N°6, Tétouan.",
+    description:
+      "Boutique d'exception : Sacs, Souliers & Accessoires. Kissaria Al Hamama N°6, Tétouan.",
     images: ["/images/logo.png"],
   },
 };
@@ -32,14 +48,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr" className="scroll-smooth">
-      <head>
-        <link rel="apple-touch-icon" href="/images/logo.png" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-        <meta name="apple-mobile-web-app-title" content="Mol Sac" />
-      </head>
-      <body className="min-h-screen bg-[#0d0a08] text-[#f6f3ee] antialiased selection:bg-[#d4af37] selection:text-[#0d0a08]">
+    <html lang="fr" className="scroll-smooth" suppressHydrationWarning>
+      <body
+        className="min-h-screen bg-[#0d0a08] text-[#f6f3ee] antialiased selection:bg-[#d4af37] selection:text-[#0d0a08]"
+        suppressHydrationWarning
+      >
         {children}
       </body>
     </html>

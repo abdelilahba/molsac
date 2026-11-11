@@ -122,7 +122,6 @@ export default function StoryAndLocation({ lang }: StoryAndLocationProps) {
               width="100%"
               height="100%"
               style={{ border: 0, minHeight: "380px" }}
-              allowFullScreen={false}
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
               title="Mol Sac Boutique Kissaria Al Hamama Tetouan"
