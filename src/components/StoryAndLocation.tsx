@@ -126,6 +126,7 @@ export default function StoryAndLocation({ lang }: StoryAndLocationProps) {
               referrerPolicy="no-referrer-when-downgrade"
               title="Mol Sac Boutique Kissaria Al Hamama Tetouan"
               className="w-full h-full filter invert-[0.9] hue-rotate-180 contrast-125"
+              suppressHydrationWarning
             />
 
             {/* Floating Location Stamp */}

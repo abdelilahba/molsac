@@ -63,16 +63,16 @@ export default function Header({ lang, onLanguageChange }: HeaderProps) {
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-18 sm:h-20 flex items-center justify-between gap-4">
-          {/* 1. Left: Brand Identity (Transparent Gold Logo + Typography) */}
-          <Link href="/" className="flex items-center gap-3 group flex-shrink-0">
-            {/* Transparent Gold Vector Logo */}
-            <div className="relative w-11 h-11 sm:w-12 sm:h-12 flex-shrink-0 group-hover:scale-105 transition-transform duration-300">
+          {/* 1. Left: Brand Identity (Original Logo + Typography) */}
+          <Link href="/" className="flex items-center gap-3.5 group flex-shrink-0">
+            {/* Original Store Logo */}
+            <div className="relative w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden border-2 border-[#d4af37]/80 shadow-[0_0_20px_rgba(212,175,55,0.25)] bg-[#1c1612] flex-shrink-0 group-hover:border-[#d4af37] group-hover:scale-105 transition-all duration-300">
               <Image
-                src="/images/logo-gold.png"
+                src="/images/logo.png"
                 alt="Mol Sac Logo"
                 fill
-                sizes="48px"
-                className="object-contain drop-shadow-[0_0_12px_rgba(212,175,55,0.4)]"
+                sizes="56px"
+                className="object-cover"
                 priority
               />
             </div>

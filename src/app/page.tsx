@@ -20,6 +20,7 @@ export default function HomePage() {
     <div
       dir={lang === "ar" ? "rtl" : "ltr"}
       className="min-h-screen bg-[#0d0a08] text-[#f6f3ee] selection:bg-[#d4af37] selection:text-[#0d0a08] relative font-sans"
+      suppressHydrationWarning
     >
       {/* Sticky Luxury Navbar */}
       <Header lang={lang} onLanguageChange={setLang} />
