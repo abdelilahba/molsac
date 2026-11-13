@@ -1,50 +1,52 @@
 // Mol Sac API Configuration for Mobile
-// By default points to the local or production Next.js backend
-export const API_BASE_URL = "http://localhost:3000";
+import { DEFAULT_PRODUCTS, MobileProduct } from "../data/defaultProducts";
 
-export interface MobileProduct {
-  id: string;
-  name: string;
-  nameAr?: string;
-  description?: string;
-  descriptionAr?: string;
-  price: number;
-  category: string;
-  images: string;
-  inStock: boolean;
-  featured: boolean;
-}
+export { MobileProduct };
 
-export interface MobileOrder {
-  id: string;
+// Live Vercel production API URL
+export const API_BASE_URL = "https://molsac.vercel.app";
+
+export interface MobileOrderPayload {
   customerName: string;
   customerPhone: string;
+  productId: number | string;
+  quantity?: number;
   notes?: string;
-  status: "PENDING" | "CONFIRMED" | "CANCELLED" | "COMPLETED";
-  productId?: string;
-  product?: MobileProduct;
-  createdAt: string;
 }
 
 export async function fetchProducts(): Promise<MobileProduct[]> {
   try {
-    const res = await fetch(`${API_BASE_URL}/api/products`);
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 6000);
+
+    const res = await fetch(`${API_BASE_URL}/api/products`, {
+      signal: controller.signal,
+    });
+    clearTimeout(timeoutId);
+
+    if (!res.ok) throw new Error("API non disponible");
     const json = await res.json();
-    return json.success ? json.data : [];
+    if (json.success && Array.isArray(json.data) && json.data.length > 0) {
+      return json.data;
+    }
+    return DEFAULT_PRODUCTS;
   } catch (error) {
-    console.error("fetchProducts error", error);
-    return [];
+    console.warn("fetchProducts fallback to local catalogue:", error);
+    return DEFAULT_PRODUCTS;
   }
 }
 
-export async function fetchOrders(): Promise<MobileOrder[]> {
+export async function submitOrder(order: MobileOrderPayload): Promise<boolean> {
   try {
-    const res = await fetch(`${API_BASE_URL}/api/orders`);
+    const res = await fetch(`${API_BASE_URL}/api/orders`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(order),
+    });
     const json = await res.json();
-    return json.success ? json.data : [];
-  } catch (error) {
-    console.error("fetchOrders error", error);
-    return [];
+    return Boolean(json.success);
+  } catch (err) {
+    console.error("submitOrder error:", err);
+    return false;
   }
 }
-
