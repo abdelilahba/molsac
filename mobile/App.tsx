@@ -370,7 +370,11 @@ export default function App() {
                       activeOpacity={0.88}
                     >
                       <View style={styles.productImgContainer}>
-                        <Image source={{ uri: imgUri }} style={styles.productImg} />
+                        <Image
+                          source={{ uri: imgUri }}
+                          style={styles.productImg}
+                          resizeMode="cover"
+                        />
                         {/* Favorite Heart Button */}
                         <TouchableOpacity
                           style={styles.favBadge}
@@ -450,8 +454,25 @@ export default function App() {
           ) : (
             <View style={styles.productGrid}>
               {favoriteProducts.map((item) => (
-                <View key={item.id} style={styles.productCard}>
-                  <Image source={{ uri: getProductImg(item.images) }} style={styles.productImg} />
+                <TouchableOpacity
+                  key={item.id}
+                  style={styles.productCard}
+                  onPress={() => setSelectedProduct(item)}
+                  activeOpacity={0.88}
+                >
+                  <View style={styles.productImgContainer}>
+                    <Image
+                      source={{ uri: getProductImg(item.images) }}
+                      style={styles.productImg}
+                      resizeMode="cover"
+                    />
+                    <TouchableOpacity
+                      style={styles.favBadge}
+                      onPress={() => toggleFavorite(item.id)}
+                    >
+                      <Text style={{ fontSize: 14 }}>❤️</Text>
+                    </TouchableOpacity>
+                  </View>
                   <View style={styles.productInfo}>
                     <Text style={styles.productName} numberOfLines={1}>
                       {lang === "ar" && item.nameAr ? item.nameAr : item.name}
@@ -466,7 +487,7 @@ export default function App() {
                       </Text>
                     </TouchableOpacity>
                   </View>
-                </View>
+                </TouchableOpacity>
               ))}
             </View>
           )}
@@ -634,13 +655,19 @@ export default function App() {
         <Modal visible animationType="slide" transparent onRequestClose={() => setSelectedProduct(null)}>
           <View style={styles.detailModalOverlay}>
             <View style={styles.detailModalCard}>
-              <Image source={{ uri: getProductImg(selectedProduct.images) }} style={styles.detailImg} />
-              <TouchableOpacity
-                style={styles.detailCloseBtn}
-                onPress={() => setSelectedProduct(null)}
-              >
-                <Text style={{ color: "#fff", fontSize: 16, fontWeight: "bold" }}>✕</Text>
-              </TouchableOpacity>
+              <View style={styles.detailImgContainer}>
+                <Image
+                  source={{ uri: getProductImg(selectedProduct.images) }}
+                  style={styles.detailImg}
+                  resizeMode="contain"
+                />
+                <TouchableOpacity
+                  style={styles.detailCloseBtn}
+                  onPress={() => setSelectedProduct(null)}
+                >
+                  <Text style={{ color: "#fff", fontSize: 16, fontWeight: "bold" }}>✕</Text>
+                </TouchableOpacity>
+              </View>
 
               <View style={styles.detailInfoBox}>
                 <Text style={styles.detailName}>
@@ -863,6 +890,7 @@ const styles = StyleSheet.create({
     width: 54,
     height: 54,
     borderRadius: 27,
+    resizeMode: "cover",
   },
   storyTitle: {
     color: "#e8e0d5",
@@ -921,14 +949,16 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     borderRadius: 22,
     overflow: "hidden",
-    height: 240,
+    height: 270,
     marginBottom: 16,
     borderWidth: 1,
     borderColor: "rgba(212, 175, 55, 0.3)",
+    backgroundColor: "#16110d",
   },
   masterpieceImg: {
     width: "100%",
     height: "100%",
+    resizeMode: "cover",
   },
   masterpieceOverlay: {
     position: "absolute",
@@ -1068,12 +1098,15 @@ const styles = StyleSheet.create({
   },
   productImgContainer: {
     width: "100%",
-    aspectRatio: 1,
+    aspectRatio: 0.82,
     position: "relative",
+    backgroundColor: "#18120e",
+    overflow: "hidden",
   },
   productImg: {
     width: "100%",
     height: "100%",
+    resizeMode: "cover",
   },
   favBadge: {
     position: "absolute",
@@ -1179,6 +1212,7 @@ const styles = StyleSheet.create({
   boutiqueImg: {
     width: "100%",
     height: "100%",
+    resizeMode: "cover",
   },
   boutiqueHeroOverlay: {
     position: "absolute",
@@ -1373,9 +1407,20 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderColor: "rgba(212, 175, 55, 0.4)",
   },
+  detailImgContainer: {
+    width: "100%",
+    height: 330,
+    backgroundColor: "#0a0705",
+    justifyContent: "center",
+    alignItems: "center",
+    position: "relative",
+    borderBottomWidth: 1,
+    borderBottomColor: "rgba(212, 175, 55, 0.2)",
+  },
   detailImg: {
     width: "100%",
-    height: 260,
+    height: "100%",
+    resizeMode: "contain",
   },
   detailCloseBtn: {
     position: "absolute",

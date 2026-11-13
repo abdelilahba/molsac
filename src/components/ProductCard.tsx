@@ -55,8 +55,8 @@ export default function ProductCard({
     >
       {/* Top Image Showcase Area */}
       <div
-        className={`relative w-full overflow-hidden bg-[#0d0a08] ${
-          isEditorial ? "sm:col-span-6 aspect-square sm:aspect-auto sm:h-full min-h-[300px]" : "aspect-[4/4]"
+        className={`relative w-full overflow-hidden bg-[#140f0c] ${
+          isEditorial ? "sm:col-span-6 aspect-square sm:aspect-auto sm:h-full min-h-[300px]" : "aspect-[4/5]"
         }`}
       >
         <Image
@@ -64,11 +64,11 @@ export default function ProductCard({
           alt={displayName}
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          className="object-cover group-hover:scale-108 transition-transform duration-700 ease-out"
+          className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
         />
 
         {/* Subtle dark gradient overlay at bottom of image */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#15100c] via-transparent to-black/20 opacity-80 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#15100c]/80 via-transparent to-black/10 pointer-events-none" />
 
         {/* Floating Badges */}
         <div className="absolute top-3 start-3 end-3 flex items-start justify-between gap-2 pointer-events-none">

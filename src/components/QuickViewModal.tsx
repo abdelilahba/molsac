@@ -46,16 +46,16 @@ export default function QuickViewModal({
 
         <div className="grid grid-cols-1 md:grid-cols-2">
           {/* Product Image Column */}
-          <div className="relative aspect-square md:aspect-auto md:min-h-[440px] bg-[#0d0a08] overflow-hidden">
+          <div className="relative aspect-[4/5] md:aspect-auto md:min-h-[460px] bg-[#0d0a08] overflow-hidden flex items-center justify-center">
             <Image
               src={imageUrl}
               alt={displayName}
               fill
-              className="object-cover"
+              className="object-contain p-2"
               sizes="(max-width: 768px) 100vw, 50vw"
               priority
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#140f0c] via-transparent to-black/30 md:hidden" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#140f0c]/60 via-transparent to-transparent md:hidden pointer-events-none" />
 
             {/* Badges */}
             <div className="absolute top-4 start-4 flex flex-col gap-2">
