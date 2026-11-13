@@ -1,6 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
-import { writeFile, mkdir } from "fs/promises";
-import path from "path";
+import { v2 as cloudinary } from "cloudinary";
+
+// Configure Cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME || "c0tbmpml",
+  api_key: process.env.CLOUDINARY_API_KEY || "847881296782246",
+  api_secret: process.env.CLOUDINARY_API_SECRET || "7P0tj1mrmN4qWbD_Jkb9UhIpNj4",
+  secure: true,
+});
 
 export async function POST(req: NextRequest) {
   try {
@@ -25,39 +32,37 @@ export async function POST(req: NextRequest) {
 
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
+    const base64Data = buffer.toString("base64");
+    const fileUri = `data:${mimeType};base64,${base64Data}`;
 
-    // Try saving to filesystem (works locally or in persistent environments)
+    // 1. Primary: Upload to Cloudinary with automatic WebP compression & CDN distribution
     try {
-      const uploadsDir = path.join(process.cwd(), "public", "uploads");
-      await mkdir(uploadsDir, { recursive: true });
-
-      const ext = path.extname(file.name) || ".jpg";
-      const baseName = path.basename(file.name, ext).replace(/[^a-zA-Z0-9_-]/g, "");
-      const uniqueName = `molsac_${Date.now()}_${baseName || "photo"}${ext}`;
-      const filePath = path.join(uploadsDir, uniqueName);
-
-      await writeFile(filePath, buffer);
-
-      return NextResponse.json({
-        success: true,
-        url: `/uploads/${uniqueName}`,
-        message: "Photo téléchargée avec succès !",
+      const uploadResult = await cloudinary.uploader.upload(fileUri, {
+        folder: "molsac_products",
+        transformation: [
+          { quality: "auto", fetch_format: "auto" },
+        ],
       });
-    } catch (fsError) {
-      console.warn("Filesystem upload failed (e.g. Vercel read-only), using base64 data URL fallback:", fsError);
 
-      // Robust fallback for Vercel serverless: Data URI
-      const base64Data = buffer.toString("base64");
-      const dataUri = `data:${mimeType};base64,${base64Data}`;
-
-      return NextResponse.json({
-        success: true,
-        url: dataUri,
-        message: "Photo enregistrée avec succès !",
-      });
+      if (uploadResult && uploadResult.secure_url) {
+        return NextResponse.json({
+          success: true,
+          url: uploadResult.secure_url,
+          message: "Photo téléchargée et optimisée sur Cloudinary avec succès !",
+        });
+      }
+    } catch (cloudErr) {
+      console.warn("Cloudinary upload failed, falling back to base64 data URI:", cloudErr);
     }
+
+    // 2. Resilient Fallback: Base64 Data URI if network or cloud is temporarily unavailable
+    return NextResponse.json({
+      success: true,
+      url: fileUri,
+      message: "Photo enregistrée avec succès !",
+    });
   } catch (error: any) {
-    console.error("Upload error:", error);
+    console.error("Upload critical error:", error);
     return NextResponse.json(
       { success: false, error: "Erreur lors du téléchargement de l'image." },
       { status: 500 }
