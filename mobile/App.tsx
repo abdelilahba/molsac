@@ -162,7 +162,7 @@ export default function App() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="light-content" backgroundColor="#0d0a08" />
+      <StatusBar barStyle="light-content" />
 
       {/* Top Luxury Header */}
       <View style={styles.header}>
@@ -1341,7 +1341,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   storyFullImg: {
-    ...StyleSheet.absoluteFillObject,
+    ...StyleSheet.absoluteFill,
     width: "100%",
     height: "100%",
     resizeMode: "cover",
