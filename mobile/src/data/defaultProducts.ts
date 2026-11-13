@@ -166,3 +166,4 @@ export const DEFAULT_PRODUCTS: MobileProduct[] = [
     featured: true,
   },
 ];
+
