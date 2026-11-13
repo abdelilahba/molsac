@@ -779,6 +779,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#0d0a08",
+    maxWidth: Platform.OS === "web" ? 480 : undefined,
+    width: "100%",
+    alignSelf: "center",
   },
   header: {
     paddingHorizontal: 16,
@@ -1088,13 +1091,13 @@ const styles = StyleSheet.create({
     paddingTop: 8,
   },
   productCard: {
-    width: (SCREEN_WIDTH - 44) / 2,
+    width: "48%",
     backgroundColor: "#16110d",
     borderRadius: 18,
     overflow: "hidden",
     borderWidth: 1,
     borderColor: "rgba(212, 175, 55, 0.2)",
-    marginBottom: 4,
+    marginBottom: 12,
   },
   productImgContainer: {
     width: "100%",
@@ -1312,6 +1315,9 @@ const styles = StyleSheet.create({
     borderTopColor: "rgba(212, 175, 55, 0.2)",
     paddingVertical: 8,
     paddingBottom: Platform.OS === "ios" ? 18 : 8,
+    maxWidth: Platform.OS === "web" ? 480 : undefined,
+    width: "100%",
+    alignSelf: "center",
   },
   navItem: {
     flex: 1,

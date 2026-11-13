@@ -121,7 +121,7 @@ export default function ProductCard({
 
       {/* Content Section */}
       <div
-        className={`p-5 sm:p-6 flex-1 flex flex-col justify-between ${
+        className={`p-3.5 sm:p-5 flex-1 flex flex-col justify-between ${
           isEditorial ? "sm:col-span-6 sm:p-8" : ""
         }`}
       >
