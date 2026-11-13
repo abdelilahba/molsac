@@ -196,7 +196,7 @@ export default function Hero({ lang }: HeroProps) {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30" />
 
                   {/* Top Badge */}
-                  <div className="absolute top-3 start-3 end-3 flex items-center justify-between">
+                  <div className="absolute top-3 left-3 right-3 flex items-center justify-between">
                     <span className="px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-gold-metallic text-[#0d0a08] shadow-lg">
                       {lang === "ar" ? current.tagAr : current.tagFr}
                     </span>
@@ -206,7 +206,7 @@ export default function Hero({ lang }: HeroProps) {
                   </div>
 
                   {/* Floating Price Pill */}
-                  <div className="absolute bottom-3 start-3 flex items-baseline gap-1 px-3.5 py-1.5 rounded-xl bg-black/85 border border-[#d4af37]/50 backdrop-blur-md">
+                  <div className="absolute bottom-3 left-3 flex items-baseline gap-1 px-3.5 py-1.5 rounded-xl bg-black/85 border border-[#d4af37]/50 backdrop-blur-md">
                     <span className="font-serif-luxury font-extrabold text-2xl text-gold-gradient">
                       {current.price}
                     </span>
