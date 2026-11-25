@@ -23,6 +23,7 @@ export default function ProductCatalog({ lang }: ProductCatalogProps) {
   const [showFeaturedOnly, setShowFeaturedOnly] = useState(false);
   const [sortBy, setSortBy] = useState<"featured" | "priceAsc" | "priceDesc" | "newest">("featured");
   const [layoutMode, setLayoutMode] = useState<"grid" | "editorial">("grid");
+  const [visibleCount, setVisibleCount] = useState(16);
 
   // Reservation modal state
   const [selectedProductForOrder, setSelectedProductForOrder] = useState<Product | null>(null);
@@ -291,24 +292,43 @@ export default function ProductCatalog({ lang }: ProductCatalogProps) {
             </a>
           </div>
         ) : (
-          <div
-            className={
-              layoutMode === "editorial"
-                ? "grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8"
-                : "grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3.5 sm:gap-6"
-            }
-          >
-            {filteredProducts.map((product) => (
-              <ProductCard
-                key={product.id}
-                product={product}
-                lang={lang}
-                onReserve={handleOpenReserve}
-                onQuickView={handleOpenQuickView}
-                layoutMode={layoutMode}
-              />
-            ))}
-          </div>
+          <>
+            <div
+              className={
+                layoutMode === "editorial"
+                  ? "grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8"
+                  : "grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3.5 sm:gap-6"
+              }
+            >
+              {filteredProducts.slice(0, visibleCount).map((product) => (
+                <ProductCard
+                  key={product.id}
+                  product={product}
+                  lang={lang}
+                  onReserve={handleOpenReserve}
+                  onQuickView={handleOpenQuickView}
+                  layoutMode={layoutMode}
+                />
+              ))}
+            </div>
+
+            {/* Load More Button for High Volume Catalogs */}
+            {filteredProducts.length > visibleCount && (
+              <div className="mt-12 text-center">
+                <button
+                  onClick={() => setVisibleCount((prev) => prev + 16)}
+                  className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#1c1510] border border-[#d4af37]/40 hover:border-[#d4af37] text-[#d4af37] hover:text-[#fbf8f3] font-bold text-xs uppercase tracking-widest transition-all cursor-pointer shadow-lg active:scale-95"
+                >
+                  <span>
+                    {lang === "fr"
+                      ? `Afficher plus d'articles (${visibleCount} sur ${filteredProducts.length})`
+                      : `عرض المزيد من الموديلات (${visibleCount} من أصل ${filteredProducts.length})`}
+                  </span>
+                  <Sparkles className="w-4 h-4 text-[#d4af37]" />
+                </button>
+              </div>
+            )}
+          </>
         )}
       </div>
 
